@@ -140,23 +140,22 @@ namespace MVCAmazonExtra.Services
             if (productos != null)
             {
                 Producto prodEliminar = productos.FirstOrDefault(x => x.IdRestaurante == idprod);
-                if (prodEliminar != null)
+
+                productos.Remove(prodEliminar);
+                //comprobamos si ya no existen coches favoritos
+                if (productos.Count == 0)
                 {
-                    productos.Remove(prodEliminar);
-                    //comprobamos si ya no existen coches favoritos
-                    if (productos.Count == 0)
-                    {
-                        await this.cache.RemoveAsync(email);
-                    }
-                    else
-                    {
-                        //SERIALIZAMOS Y ALMACENAMOS LA COLECCION ACTUALIZADA
-                        string jsonProductos =
-                            JsonConvert.SerializeObject(productos);
-                        await this.cache.SetStringAsync(email
-                            , jsonProductos, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15)));
-                    }
+                    await this.cache.RemoveAsync(email);
                 }
+             // else
+               // {
+                    //SERIALIZAMOS Y ALMACENAMOS LA COLECCION ACTUALIZADA
+                    string jsonProductos =
+                        JsonConvert.SerializeObject(productos);
+                    await this.cache.SetStringAsync(email
+                        , jsonProductos, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15)));
+              //  }
+
             }
 
         }
