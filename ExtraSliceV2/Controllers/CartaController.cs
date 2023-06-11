@@ -4,6 +4,7 @@ using ExtraSliceV2.Filters;
 using ExtraSliceV2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using MVCAmazonExtra.Helpers;
 using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
 using Newtonsoft.Json;
@@ -14,13 +15,15 @@ namespace ExtraSliceV2.Controllers
     {
         private ServiceRestaurante service;
         private ServiceCacheAmazon serviceCache;
+        private ServiceStorageS3 storageS3;
         private IMemoryCache memoryCache;
 
-        public CartaController(ServiceRestaurante service, IMemoryCache memoryCache, ServiceCacheAmazon serviceCache)
+        public CartaController(ServiceRestaurante service, IMemoryCache memoryCache, ServiceCacheAmazon serviceCache, ServiceStorageS3 storageS3)
         {
             this.service = service;
             this.memoryCache = memoryCache;
             this.serviceCache = serviceCache;
+            this.storageS3 = storageS3;
 
         }
 
@@ -166,6 +169,14 @@ namespace ExtraSliceV2.Controllers
 
 
             await this.service.FinalizarPedidoAsync(usuario.IdUser, idproducto, cantidad, token);
+            string nombrevuelta = "";
+            HelperPdf helper = new HelperPdf();
+            string ruta = helper.GeneraPdf(productosSession, prodCantidad, usuario.Email, ref nombrevuelta);
+            using (FileStream stream = new FileStream(ruta, FileMode.OpenOrCreate))
+            {
+                await this.storageS3.UploadFileAsync(nombrevuelta, stream);
+
+            }
             this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
         }
