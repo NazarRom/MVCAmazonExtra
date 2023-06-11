@@ -18,7 +18,7 @@ namespace MVCAmazonExtra.Helpers
             string html = "";
             for (int i = 0; i < productos.Count(); i++)
             {
-                html+= "<h1>Hola</h1>" + productos[i].Nombre_producto;
+                html+= "<h1 style='background-color: #f9f9f9;'>Hola</h1>" + productos[i].Nombre_producto;
 
             }
             //string html = "<div style='font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 20px;'><h1 style='text-align: center;'>Factura</h1><table style='width: 100%; border-collapse: collapse; margin-top: 20px;'><tr><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Nombre</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Cantidad</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Precio</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Total</th></tr><table style='width: 100%; border-collapse: collapse; margin-top: 20px;'>";
