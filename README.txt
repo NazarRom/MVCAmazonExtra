@@ -1,0 +1,1 @@
+En el Login se puede registrar, para el buen funcionamiento de la app es necesario introducir el @mail verdadero ya que al realizar el pedido manda un correo con la lista de los alimentos

@@ -1,0 +1,165 @@
+﻿@model List<Categoria>
+
+<div class="icon-container">
+    @foreach (Categoria cat in Model)
+    {
+        <img src="@cat.Imagen" class="fa-arrow-up categ" data-id="@cat.IdCategoria" />
+
+        <br />
+    }
+</div>
+<div>
+    <section class="carousel">
+        <div class="carousel__container">
+
+
+
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="56" class="carousel--item">
+                <img class="carousel--item__img"
+                     src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/BurgerKing.jpg"
+                     alt="item" />
+
+                <div class="carousel--item__details">
+                   @* <div>
+                        <img src="../src/img/carousel--play.svg" alt="icon play" />
+                        <img src="../src/img/carousel--plus.svg" alt="icon add" />
+                    </div>
+
+                    <p class="carousel--item__details--title">Titulo provisional</p>
+                    <p class="carousel--item__details--subtitle">
+                        2020 16+ 114 Minutos
+                    </p>*@
+                </div>
+            </a>
+
+
+
+
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="55" class="carousel--item">
+                <img class="carousel--item__img"
+                     src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/Goiko-Princesa26.jpg"
+                     alt="item" />
+
+                <div class="carousel--item__details">
+                    @*<div>
+                        <img src="../src/img/carousel--play.svg" alt="icon play" />
+                        <img src="../src/img/carousel--plus.svg" alt="icon add" />
+                    </div>
+
+                    <p class="carousel--item__details--title">Titulo provisional</p>
+                    <p class="carousel--item__details--subtitle">
+                        2020 16+ 114 Minutos
+                    </p>*@
+                </div>
+            </a>
+
+
+
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="57" class="carousel--item">
+                <img class="carousel--item__img"
+                     src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/McDonalds.jpg"
+                     alt="item" />
+
+              <div class="carousel--item__details">
+                    @*<div>
+                        <img src="../src/img/carousel--play.svg" alt="icon play" />
+                        <img src="../src/img/carousel--plus.svg" alt="icon add" />
+                    </div>
+
+                    <p class="carousel--item__details--title">Titulo provisional</p>
+                    <p class="carousel--item__details--subtitle">
+                        2020 16+ 114 Minutos
+                    </p>*@
+                </div>
+            </a>
+
+
+        </div>
+</div>
+<div class="filters">
+
+    <div class="precios">
+
+        <h1>Rango de precios</h1>
+        <input type="range" id="range-input" min="3" max="30" step="1" value="0">
+        <span id="range-value">0€</span>
+    </div>
+
+   
+
+    <div class="search-container">
+        <form>
+            <input type="text" id="searchBar" placeholder="Buscar...">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="restaurantes elemento" id="rest"></div>
+
+
+
+@section Scripts {
+    <script>
+
+        const rangeInput = document.getElementById('range-input');
+        const rangeValue = document.getElementById('range-value');
+
+        rangeInput.addEventListener('input', (event) => {
+            rangeValue.innerHTML = event.target.value + ""+"€";
+        });
+
+        $(document).ready(function () {
+
+            var request = "/Carta/_RestaurantesPartial";
+            $("#rest").load(request);
+
+
+            $(".categ").click(function () {
+                var idCategoria = $(this).data("id");
+                console.log(idCategoria);
+                var request = "/Carta/_ResaturanteOnCategoria?idcategoria=" + idCategoria;
+                $("#rest").load(request);
+            });
+
+            $("#range-input").change(function () {
+                var dinero = $(this).val();
+                console.log(dinero);
+                if (dinero <= 2) {
+                    alert("No hay Restaurantes");
+                    var request = "/Carta/_RestaurantesPartial";
+                    $("#rest").load(request);
+
+                }
+                {
+                    var request = "/Carta/_RestaurantesByDinero?dinero=" + dinero;
+                    $("#rest").load(request);
+                }
+
+            });
+            $(function () {
+                $('#searchBar').autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '/Carta/_RestauranteByName',
+                            data: { name: request.term },
+                            success: function (data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function (event, ui) {
+                        // Do something when a result is selected
+                        console.log(ui.item.value)
+                        var request = "/Carta/_ShowRestauranteByName?name=" + encodeURIComponent(ui.item.value) ;
+                        $("#rest").load(request);
+                    }
+                });
+            });
+
+        })
+    </script>
+}
+

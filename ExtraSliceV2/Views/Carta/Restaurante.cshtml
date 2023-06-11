@@ -1,0 +1,121 @@
+﻿@inject IMemoryCache memoryCache;
+@using Microsoft.Extensions.Caching.Memory;
+@model RestauranteProductos
+@section Style{
+    <link rel="stylesheet" href="~/css/RestauranteStyle.css" />
+}
+@{
+    List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
+    List<Producto> favoritos = memoryCache.Get<List<Producto>>("FAVORITOS");
+}
+
+
+
+@if (Model != null)
+{
+    <div class="fondoRestaurante">
+        <img src="@Model.Restaurante.Imagen" />
+        <div class="datosRestaurante">
+            <section class="restaurante">
+                <h1>@Model.Restaurante.Nombre_restaurante</h1>
+                <h2>@Model.Restaurante.Direccion</h2>
+                <h3>Telefono: @Model.Restaurante.Telefono</h3>
+            </section>
+        </div>
+    </div>
+
+
+    <div id="menu" class="menu">
+        @foreach (Producto pro in Model.Productos)
+        {
+            <div class="alimento">
+                <h2>@pro.Nombre_producto</h2>
+                <h3>@pro.Descripcion</h3>
+                <h2>@pro.Precio €</h2>
+
+                @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>*@
+                <button class="add-to-favorites" data-restaurante-id="@pro.IdRestaurante" data-is-favorite="@pro.IdProducto"></button>
+
+                @if (idsProductos == null)
+                {
+                    @* <button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                    @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir al carrito</a>*@
+                    <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop my-button but">Añadir a la cesta</button>
+                    <img src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/si.png" class="my-image" style="width:40px; height: 40px;display:none" />
+                }
+                else
+                {
+                    if (idsProductos.Contains(pro.IdProducto))
+                    {
+                        <img src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/si.png" style="width:40px; height: 40px" />
+                    }
+                    else
+                    {
+                        @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                        @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir al carrito</a>*@
+                       <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop my-button but">Añadir a la cesta</button>
+                        <img src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/si.png" class="my-image" style="width:40px; height: 40px;display:none" />
+                    }
+
+                }
+
+            </div>
+
+        }
+    </div>
+}
+@section Scripts{
+
+    <script>
+        const cartItems = document.querySelector('.cart-items');
+
+        let count = 0;
+
+        function addItem() {
+            count++;
+            //cartItems.innerText = count;
+
+            const newItem = document.createElement('div');
+            newItem.classList.add('cart-items');
+            newItem.innerText = '';
+
+            const cart = document.querySelector('.cart');
+            cart.appendChild(newItem);
+        }
+
+
+        $(document).ready(function () {
+
+            $(".my-button").click(function () {
+                console.log("pata")
+                $(this).hide();
+                $(this).next(".my-image").show();
+            });
+
+            $(".add-shop").click(function () {
+                console.log("hola")
+                var button = $(this);
+                var restauranteId = button.data("restaurante-id");
+                var isidproducto = button.data("is-idproducto");
+                $.get("/Carta/SeleccionarProducto", { idrestaurante: restauranteId, idproducto: isidproducto });
+                // Agregar o eliminar una clase CSS para cambiar el color del ícono
+
+            });
+            // Agregar el ícono de la estrella al botón
+            $(".add-to-favorites").prepend('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.8-1.64C4.74 14.21 2 10.8 2 7.5 2 4.42 4.42 2 7.5 2c2.34 0 4.47 1.43 5.5 3.63C12.03 3.43 14.16 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.31-2.74 6.71-8.2 12.21L12 21.35z"/></svg>');
+
+            // Agregar un controlador de eventos para el botón
+            $(".add-to-favorites").click(function () {
+                var button = $(this);
+                var restauranteId = button.data("restaurante-id");
+                var isFavorite = button.data("is-favorite");
+                $.get("/Carta/SeleccionarFavorito", { idrestaurante: restauranteId, idfavorito: isFavorite });
+                // Agregar o eliminar una clase CSS para cambiar el color del ícono
+                $(this).toggleClass("favorited");
+            });
+
+
+        });
+
+    </script>
+  }

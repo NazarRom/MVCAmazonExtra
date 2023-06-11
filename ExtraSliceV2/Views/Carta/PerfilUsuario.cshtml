@@ -1,0 +1,42 @@
+﻿@model Usuario
+@using System.Security.Claims;
+@{
+    //tring IdUser = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@if(Model != null)
+{
+    <form class="form">
+        <h2>Perfil de Usuario</h2>
+        <div class="form-group">
+            <label for="email">Nombre:</label>
+            <div class="relative">
+                <input class="form-control" id="name" type="text" autocomplete="" value="@Model.Nombre_cliente" placeholder="@Model.Nombre_cliente">
+                <i class="fa fa-user"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <div class="relative">
+                <input class="form-control" type="email" required="" value="@Model.Email" placeholder="@Model.Email">
+                <i class="fa fa-envelope"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Teléfono:</label>
+            <div class="relative">
+                <input class="form-control" type="text" maxlength="10" value="@Model.Telefono" placeholder="@Model.Telefono">
+                <i class="fa fa-phone"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Dirección:</label>
+            <div class="relative">
+                <input class="form-control" type="url" pattern="https?://.+" required="" value="@Model.Direccion" placeholder="@Model.Direccion">
+                <i class="fa fa-building"></i>
+            </div>
+        </div>
+    </form>
+}
+
+
+

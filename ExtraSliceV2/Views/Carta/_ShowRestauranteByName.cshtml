@@ -1,0 +1,16 @@
+﻿@model Restaurante
+
+@if (Model != null)
+{
+
+
+    <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@Model.IdRestaurante" class="card grow">
+        <img src="@Model.Imagen" />
+        <div class="content">
+            <h3>@Model.Nombre_restaurante</h3>
+            <p>@Model.Direccion</p>
+        </div>
+    </a>
+
+
+}

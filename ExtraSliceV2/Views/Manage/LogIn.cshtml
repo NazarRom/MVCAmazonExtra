@@ -1,0 +1,31 @@
+﻿<div class="login-container">
+    <section class="login" id="login">
+        <header>
+            <h2>eXtraSlice</h2>
+            <h4>Login</h4>
+        </header>
+        <form class="login-form" action="#" method="post">
+            <input type="text" class="login-input" placeholder="Email" name="email" required autofocus />
+            <input type="text" class="login-input" placeholder="Contraseña" name="password" required />
+            <div class="submit-container">
+                <button type="submit" class="login-button">LOG IN</button>
+            </div>
+        </form>
+    </section>
+    <a asp-controller="Carta" asp-action="Register" class="login-button" style="text-decoration:none">Registrate si no tienes cuenta</a>
+</div>
+<h1>@ViewData["MENSAJE"]</h1>
+
+@section Scripts {
+    <script>
+        var form = document.getElementById('login');
+        var buttonE1 = document.getElementById('e1');
+
+        buttonE1.addEventListener('click', function () {
+            form.classList.add('error_1');
+            setTimeout(function () {
+                form.classList.remove('error_1');
+            }, 3000);
+        });
+    </script>
+}

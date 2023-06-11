@@ -1,0 +1,171 @@
+﻿.total-price {
+    width: 83px;
+    padding-top: 27px;
+    text-align: center;
+    font-size: 35px;
+    color: #43484D;
+    font-weight: 300;
+    font-family: Raleway;
+}
+
+.quantity {
+    padding-top: 20px;
+    margin-right: 60px;
+}
+
+    .quantity input {
+        -webkit-appearance: none;
+        border: none;
+        text-align: center;
+        width: 32px;
+        font-size: 16px;
+        color: #43484D;
+        font-weight: 300;
+    }
+
+button[class*=btn] {
+    width: 30px;
+    height: 30px;
+    background-color: #E1E8EE;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+
+button:focus,
+input:focus {
+    outline: 0;
+}
+
+.description {
+    padding-top: 10px;
+    margin-right: 60px;
+    width: 115px;
+    font-family: Raleway;
+}
+
+    .description label {
+        display: block;
+        font-size: 24px;
+        color: #43484D;
+        font-weight: 400;
+    }
+
+    .description span:first-child {
+        margin-bottom: 5px;
+    }
+
+    .description span:last-child {
+        font-weight: 300;
+        margin-top: 8px;
+        color: #86939E;
+    }
+
+
+
+.buttons {
+    position: relative;
+    padding-top: 30px;
+    margin-right: 60px;
+}
+
+.delete-btn,
+.like-btn {
+    display: inline-block;
+    Cursor: pointer;
+}
+
+.delete-btn {
+    width: 18px;
+    height: 5px;
+    background: url(&amp;quot;delete-icn.svg&amp;quot;) no-repeat center;
+}
+
+
+.title {
+    height: 60px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 20px 30px;
+    color: #5E6977;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Raleway;
+}
+
+.item {
+    padding: 20px 30px;
+    height: 120px;
+    display: flex;
+    border-top: 1px solid #E1E8EE;
+    border-bottom: 1px solid #E1E8EE;
+}
+
+    
+
+.shopping-cart {
+    width: 750px;
+    margin: 80px auto;
+    background: #FFFFFF;
+    box-shadow: 7px 7px 7px 7px rgba(0,0,0,0.10);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bot {
+    padding: 15px 40px;
+    background: #000;
+    border: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: helvetica;
+    font-size: 12px;
+    letter-spacing: 3px;
+    position: relative;
+    transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: pointer;
+    display: block;
+    margin: 100px auto;
+}
+
+bot::after,
+bot::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+bot::after {
+    width: 30px;
+    height: 1px;
+    background: white;
+    transform: translateX(-3px);
+    margin-top: 0px;
+}
+
+bot::before {
+    content: "";
+    transform: rotate(-135deg) translateX(50%);
+    width: 11px;
+    height: 11px;
+    background: transparent;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    margin-top: -1px;
+}
+
+
+bot:hover {
+    padding: 15px 60px 15px 20px;
+}
+
+    bot:hover::after,
+    bot:hover::before {
+        opacity: 1;
+        right: 15px;
+    }

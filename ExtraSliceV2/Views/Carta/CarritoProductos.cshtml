@@ -1,0 +1,113 @@
+﻿@using System.Security.Claims;
+@model List<Producto>
+@{
+   
+
+    decimal total = 0;
+    @if (Model != null)
+    {
+        foreach (Producto pro in Model)
+        {
+            total += pro.Precio;
+        }
+    }
+
+}
+
+@if (Model != null)
+{
+
+    <div class="shopping-cart">
+        <!-- Title -->
+        <div class="title">
+            Pedido
+        </div>
+        <form method="post">
+            
+            @foreach (Producto pro in Model)
+            {
+                <div class="item">
+                    <div class="buttons">
+                        <span class="delete-btn"></span>
+                        <span class="like-btn"></span>
+                    </div>
+                    <div class="description">
+                        <label>@pro.Nombre_producto</label>
+                        <input class="form-control" type="hidden" name="idproducto" value="@pro.IdProducto">
+
+
+                    </div>
+
+                    <div class="description">
+                        <label>@pro.Precio</label>
+                        <input class="form-control" type="hidden" name="precio" value="@pro.Precio" />
+                    </div>
+
+
+                    <div class="quantity">
+                        <button type="button" class="minus-btn" onclick="disminuirInput(@pro.IdProducto)" id="disminuir_@pro.IdProducto" value="@pro.Precio">-</button>
+                        <input class="form-control" id="valor_@pro.IdProducto" name="cantidad" value="1" />
+                        <button type="button" class="plus-btn" onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto" value="@pro.Precio">+</button>
+                    </div>
+                    <a asp-controller="Carta" asp-action="DeleteCarrito" asp-route-idproducto="@pro.IdProducto" class="delete-btn"><img src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/remove.png" /></a>
+
+                </div>
+            }
+            <h1 class="total-price" id="total">@total</h1>
+            <button class="bot" type="submit">Realizar Pedido</button>
+        </form>
+    </div>
+}
+else
+{
+    <h1 style="text-align:center;font-family: Raleway;">@ViewData["mensaje"]</h1>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.like-btn').on('click', function () {
+                $(this).toggleClass('is-active');
+            });
+        })
+
+        var total = parseFloat("@total".replace(/,/g, "."));
+        function aumentarInput(id) {
+            var idBoton = event.target.id;
+            var idInput = "valor_" + id;
+            var valorPrecio = "incrementar_" + id;
+            var input = document.getElementById(idInput);
+            var precio = document.getElementById(valorPrecio).value;
+            const idcaja = document.getElementById("total");
+
+            if (input.value >= 5) {
+                input.value = 5;
+            } else {
+                input.value++;
+                total += parseFloat(precio.replace(/,/g, "."));
+                console.log(total.toFixed(2));
+                idcaja.innerText = total.toFixed(2);
+            }
+
+
+        }
+        function disminuirInput(id) {
+            var idBoton = event.target.id;
+            var idInput = "valor_" + id;
+            var valorPrecio = "disminuir_" + id;
+            var input = document.getElementById(idInput);
+            var precio = document.getElementById(valorPrecio).value;
+            const idcaja = document.getElementById("total");
+
+            if (input.value <= 0) {
+                input.value = 0;
+            } else {
+                input.value--;
+                total -= parseFloat(precio.replace(/,/g, "."));
+                idcaja.innerText = total.toFixed(2);
+            }
+
+
+        }
+    </script>
+    }

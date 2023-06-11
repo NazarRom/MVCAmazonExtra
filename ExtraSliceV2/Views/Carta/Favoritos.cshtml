@@ -1,0 +1,38 @@
+﻿@using Microsoft.Extensions.Caching.Memory;
+@inject IMemoryCache memoryCache
+@model List<Producto>
+
+
+@if(Model != null)
+{
+    
+<div class="shopping-cart">
+    <!-- Title -->
+    @foreach (Producto pro in Model)
+    {
+        <div class="item">
+            <div class="buttons">
+                <span class="delete-btn"></span>
+                <span class="like-btn"></span>
+            </div>
+            <div class="description">
+                <label>@pro.Nombre_producto</label>
+                <input class="form-control" type="hidden" name="idproducto" value="@pro.IdProducto">
+
+
+            </div>
+
+            <div class="description">
+                <label>@pro.Precio</label>
+                <input class="form-control" type="hidden" name="precio" value="@pro.Precio" />
+            </div>
+
+                <a asp-controller="Carta" asp-action="DeleteFavorito" asp-route-idproducto="@pro.IdProducto" class="delete-btn"><img src="https://storageextraslice.blob.core.windows.net/extrasliceblobs/remove.png" /></a>
+        </div>
+    }
+   
+   
+</div>
+}else{
+    <h1 style="text-align:center;font-family: Raleway;">No hay Favoritos</h1>
+}

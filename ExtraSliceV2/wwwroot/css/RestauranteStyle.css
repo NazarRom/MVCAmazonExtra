@@ -1,0 +1,110 @@
+﻿.fondoRestaurante {
+    display:flex;
+    justify-content:center;
+    width: 100%;
+    height: 400px;
+
+}
+
+    .fondoRestaurante img {
+        height: 25rem;
+        width: 60rem;
+        border: 1px solid #ccc;
+        border-radius: 7px 7px 7px 7px;
+        box-shadow: 7px 7px 15px #592A08;
+    }
+
+.datosRestaurante {
+    height: 25rem;
+    width: 30rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    border: 1px solid #ccc;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 7px 7px 15px #592A08;
+}
+.restaurante {
+    height: 13rem;
+    width: 100%;
+    
+    text-align: center;
+    padding-top: 9%;
+    font-family: Raleway;
+    display:flex;
+    flex-direction:column;
+}
+.restaurante h1{
+    font-size:40px;
+}
+
+
+.menu {
+    margin-top: 20px;
+    padding: auto;
+    /*background-color:red;*/
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 10px;
+    padding: 10px;
+}
+.alimento {
+    font-family: Raleway;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20rem;
+    height: 15rem;
+    /*background-color: green;*/
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 7px 7px 15px #592A08;
+}
+    .alimento a {
+        color: black;
+        text-decoration: none;
+    }
+
+
+.add-to-favorites {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
+
+    .add-to-favorites svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        fill: #999;
+        transition: fill 0.2s ease-in-out;
+    }
+
+    .add-to-favorites.favorited svg {
+        fill: #ffc107;
+    }
+
+
+.but {
+    background: white;
+    border: solid 2px black;
+    padding: .375em 1.125em;
+    font-size: 1rem;
+    border-radius:10px;
+}
+
+
+    .but:hover {
+        background: black;
+        color: white;
+        border-color: white;
+    }
+

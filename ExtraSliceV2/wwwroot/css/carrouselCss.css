@@ -1,0 +1,430 @@
+﻿* {
+    margin: auto;
+    padding: 0;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 110px;
+    width: 90%;
+    text-align: center;
+    font-family: Raleway;
+}
+
+.fa-arrow-up {
+    font-size: 20px;
+    color: #333;
+    transition: transform 0.3s ease-out;
+}
+
+    .fa-arrow-up:hover {
+        transform: translateY(-10px);
+    }
+
+nav {
+    margin-inline: auto;
+    width: 100%;
+    display: inline-block;
+    left: 50%;
+}
+
+/* Estilos generales para el navbar */
+.navbar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 10px;
+    /*background-color: lightsalmon;*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 9px 9px 9px 9px;
+}
+
+/* Estilos para el logo */
+.logo {
+    width: 30%;
+    /*background-color: crimson;*/
+    text-align: center;
+}
+
+    .logo a {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .logo img {
+        width: 100%;
+    }
+
+/* Estilos para el botón de inicio de sesión */
+
+.logIn {
+    width: 70%;
+    /*background-color: green;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-btn {
+    width: 150px;
+    padding: 8px 25px;
+    border: 2px solid #000;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.btn-14 {
+    background: #000;
+    color: #fff;
+    z-index: 1;
+    text-align: center;
+    width: 30%;
+    text-decoration: none;
+    border-radius: 7px 7px 7px 7px;
+}
+
+    .btn-14:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: #e0e5ec;
+        transition: all 0.3s ease;
+        border-radius: 7px 7px 7px 7px;
+    }
+
+    .btn-14:hover {
+        color: #000;
+    }
+
+        .btn-14:hover:after {
+            top: auto;
+            bottom: 0;
+            height: 100%;
+        }
+
+    .btn-14:active {
+        top: 2px;
+    }
+
+.carousel {
+    position: relative;
+    overflow-x: hidden;
+    /*background-color: blue;*/
+    width: 90%;
+    height: 350px;
+}
+
+.carousel__container {
+    padding-left: 6%;
+    width: 100%;
+    margin: 40px auto;
+    white-space: nowrap;
+    /*background-color: red;*/
+}
+
+.carousel--item {
+    display: inline-block;
+    position: relative;
+    margin-left: 2%;
+    width: 27%;
+    height: 10%;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 350ms all;
+    transform-origin: center left;
+}
+
+    .carousel--item:hover ~ .carousel--item {
+        transform: translate3d(100px, 0, 0);
+    }
+
+.carousel__container:hover .carousel--item {
+    opacity: 0.3;
+}
+
+    .carousel__container:hover .carousel--item:hover {
+        transform: scale(1.2, 1.2);
+        opacity: 1;
+    }
+
+.carousel--item:hover .carousel--item__details {
+    opacity: 1;
+}
+
+.carousel--item__img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.carousel--item__details {
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 10px;
+    opacity: 0;
+    transition: 350ms opacity;
+}
+
+    .carousel--item__details img {
+        margin: 0 5px;
+        width: 20px;
+    }
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.filters {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.precios {
+    text-align: center;
+    width: 80%;
+    border: 1px solid #ddd;
+    background: #FFFFFF;
+    box-shadow: 7px 7px 7px 7px rgba(0,0,0,0.10);
+    border-radius: 6px;
+    padding: 10px;
+    font-family: Raleway;
+}
+
+    .precios span {
+        font-size: 40px;
+    }
+
+    .precios input {
+        width: 100%;
+        height: 10px;
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        -webkit-appearance: none;
+        margin-bottom: 20px;
+    }
+/* Estilos para el contenedor de la barra de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    width: 90%;
+    background: #FFFFFF;
+    box-shadow: 7px 7px 7px 7px rgba(0,0,0,0.10);
+    border-radius: 6px;
+}
+
+    /* Estilos para el formulario */
+    .search-container form {
+        display: flex;
+        align-items: center;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        background-color: #f2f2f2;
+        width: 90%;
+    }
+
+    /* Estilos para el input */
+    .search-container input[type="text"] {
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        border-radius: 30px; /* Establecer el borde redondeado */
+    }
+
+    /* Estilos para el botón */
+    .search-container button[type="submit"] {
+        background-color: #f2f2f2;
+        border: none;
+        color: #000;
+        cursor: pointer;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 30px; /* Establecer el borde redondeado */
+    }
+
+        /* Estilos para el botón al pasar el cursor por encima */
+        .search-container button[type="submit"]:hover {
+            background-color: #ddd;
+        }
+
+
+.restaurantes {
+    width: 90%;
+    /*background-color: bisque;*/
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+/*.fadeTop {
+    opacity: 0;
+    transform: translate(0, 10vh);
+    transition: all 1s;
+}
+
+.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}*/
+
+.elemento {
+    opacity: 0;
+    transform: scale(0);
+    animation: aparecer 1s ease-in-out forwards;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.grow {
+    transition: .5s, color .10s;
+    -webkit-transition: .5s, color .10s;
+    -moz-transition: .5s, color .10s;
+}
+
+    .grow:hover {
+        transform: scale3d(1.3, 1.3, 0.3);
+        -webkit-transform: scale3d(1.3, 1.3, 0.3);
+        -moz-transform: scale3d(1.3, 1.3, 0.3);
+    }
+
+.card {
+    height: 18rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 7px 7px 7px 7px rgba(0,0,0,0.10);
+    margin-bottom: 20px;
+    font-family: Raleway;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+
+    .card img {
+        width: 17rem;
+        height: 10rem;
+        margin-top: 4%;
+        border-radius: 10px 10px 10px 10px;
+    }
+
+.content {
+    width: 90%;
+}
+
+.card h3 {
+    font-size: 24px;
+    /*background-color:aqua;*/
+    margin-bottom: 1%
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.5;
+    /*     background-color:cadetblue;*/
+    margin-bottom: 10%;
+    text-decoration: none;
+}
+
+
+.cart-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.cart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cart-container .cart-items {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    animation: cart-bounce 0.5s ease-in-out;
+}
+
+@keyframes cart-bounce {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+

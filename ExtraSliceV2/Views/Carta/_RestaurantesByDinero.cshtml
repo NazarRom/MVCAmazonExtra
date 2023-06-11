@@ -1,0 +1,16 @@
+﻿@model List<Restaurante>
+
+@if (Model != null)
+{
+    @foreach (Restaurante rest in Model)
+    {
+                <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@rest.IdRestaurante" class="card grow">
+                    <img src="@rest.Imagen" />
+                    <div class="content">
+                        <h3>@rest.Nombre_restaurante</h3>
+                        <p>@rest.Direccion</p>
+                    </div>
+                </a>
+    }
+
+}
