@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -31,6 +32,7 @@ builder.Services.AddAzureClients(factory =>
 builder.Services.AddTransient<ServiceRestaurante>();
 builder.Services.AddTransient<ServiceCacheAmazon>();
 builder.Services.AddTransient<ServiceStorageS3>();
+builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();
