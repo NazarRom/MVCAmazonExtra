@@ -139,19 +139,23 @@ namespace MVCAmazonExtra.Services
             List<Producto> productos = await this.GetCarritoRedisAsync(token);
             if (productos != null)
             {
-                productos.RemoveAll(x => x.IdRestaurante == idprod);
-                //comprobamos si ya no existen coches favoritos
-                if (productos.Count == 0)
+                Producto prodEliminar = productos.FirstOrDefault(x => x.IdRestaurante == idprod);
+                if (prodEliminar != null)
                 {
-                    await this.cache.RemoveAsync(email);
-                }
-                else
-                {
-                    //SERIALIZAMOS Y ALMACENAMOS LA COLECCION ACTUALIZADA
-                    string jsonProductos =
-                        JsonConvert.SerializeObject(productos);
-                    await this.cache.SetStringAsync(email
-                        , jsonProductos, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15)));
+                    productos.Remove(prodEliminar);
+                    //comprobamos si ya no existen coches favoritos
+                    if (productos.Count == 0)
+                    {
+                        await this.cache.RemoveAsync(email);
+                    }
+                    else
+                    {
+                        //SERIALIZAMOS Y ALMACENAMOS LA COLECCION ACTUALIZADA
+                        string jsonProductos =
+                            JsonConvert.SerializeObject(productos);
+                        await this.cache.SetStringAsync(email
+                            , jsonProductos, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15)));
+                    }
                 }
             }
 
