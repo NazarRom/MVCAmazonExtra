@@ -15,36 +15,36 @@ namespace MVCApiExtraSlice.Services
     public class ServiceRestaurante
     {
         private MediaTypeWithQualityHeaderValue Header;
-        private BlobServiceClient blobClient;
+        //private BlobServiceClient blobClient;
         private SecretClient secretClient;
         private string UrlApi;
 
-        public ServiceRestaurante(SecretClient secretClient, BlobServiceClient blobClient)
+        public ServiceRestaurante(SecretClient secretClient)
         {
             this.Header = new MediaTypeWithQualityHeaderValue("application/json");
             this.secretClient = secretClient;
             this.UrlApi = secretClient.GetSecretAsync("apiurl").Result.Value.Value;
-            this.blobClient = blobClient;
+           // this.blobClient = blobClient;
         }
 
         #region BLOBS
-        public async Task<string> GetBlobUriAsync(string container, string blobName)
-        {
-            BlobContainerClient containerClient = this.blobClient.GetBlobContainerClient(container);
-            BlobClient blobClient = containerClient.GetBlobClient(blobName);
+        //public async Task<string> GetBlobUriAsync(string container, string blobName)
+        //{
+        //    BlobContainerClient containerClient = this.blobClient.GetBlobContainerClient(container);
+        //    BlobClient blobClient = containerClient.GetBlobClient(blobName);
 
-            var response = await containerClient.GetPropertiesAsync();
-            var properties = response.Value;
+        //    var response = await containerClient.GetPropertiesAsync();
+        //    var properties = response.Value;
 
-            // Will be private if it's None
-            if (properties.PublicAccess == Azure.Storage.Blobs.Models.PublicAccessType.None)
-            {
-                Uri imageUri = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddSeconds(3600));
-                return imageUri.ToString();
-            }
+        //    // Will be private if it's None
+        //    if (properties.PublicAccess == Azure.Storage.Blobs.Models.PublicAccessType.None)
+        //    {
+        //        Uri imageUri = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddSeconds(3600));
+        //        return imageUri.ToString();
+        //    }
 
-            return blobClient.Uri.AbsoluteUri.ToString();
-        }
+        //    return blobClient.Uri.AbsoluteUri.ToString();
+        //}
         #endregion
 
         #region MAIL

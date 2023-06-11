@@ -33,7 +33,7 @@ namespace ExtraSliceV2.Controllers
             {
                 if (cat.Imagen != null)
                 {
-                    cat.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", cat.Imagen);
+                    cat.Imagen = "https://publicfotos.s3.amazonaws.com/" + cat.Imagen;
                 }
             }
             return View(categorias);
@@ -51,7 +51,7 @@ namespace ExtraSliceV2.Controllers
             {
                 if (res.Imagen != null)
                 {
-                    res.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", res.Imagen);
+                    res.Imagen = "https://publicfotos.s3.amazonaws.com/" + res.Imagen;
                 }
             }
             return PartialView("_RestaurantesPartial", restaurantes);
@@ -66,7 +66,7 @@ namespace ExtraSliceV2.Controllers
             {
                 if (res.Imagen != null)
                 {
-                    res.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", res.Imagen);
+                    res.Imagen = "https://publicfotos.s3.amazonaws.com/" + res.Imagen;
                 }
             }
             return PartialView("_ResaturanteOnCategoria", restaurantes);
@@ -81,7 +81,7 @@ namespace ExtraSliceV2.Controllers
             {
                 if (res.Imagen != null)
                 {
-                    res.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", res.Imagen);
+                    res.Imagen = "https://publicfotos.s3.amazonaws.com/" + res.Imagen;
                 }
             }
             return PartialView("_ResaturanteOnCategoria", restaurantes);
@@ -100,7 +100,7 @@ namespace ExtraSliceV2.Controllers
 
             if (restaurante.Imagen != null)
             {
-                restaurante.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", restaurante.Imagen);
+                restaurante.Imagen = "https://publicfotos.s3.amazonaws.com/" + restaurante.Imagen;
             }
 
             return PartialView("_ShowRestauranteByName", restaurante);
@@ -117,7 +117,7 @@ namespace ExtraSliceV2.Controllers
 
             if (restauranteProductos.Restaurante.Imagen != null)
             {
-                restauranteProductos.Restaurante.Imagen = await this.service.GetBlobUriAsync("extrasliceblobs", restauranteProductos.Restaurante.Imagen);
+                restauranteProductos.Restaurante.Imagen = "https://publicfotos.s3.amazonaws.com/" + restauranteProductos.Restaurante.Imagen;
             }
 
             return View(restauranteProductos);

@@ -36,19 +36,27 @@ builder.Services.AddResponseCaching();
 
 //connection to az keyvault
 SecretClient secretClient = builder.Services.BuildServiceProvider().GetService<SecretClient>();
+
 //get blobs connection
-KeyVaultSecret keyVaultSecret = await secretClient.GetSecretAsync("blobs");
+//KeyVaultSecret keyVaultSecret = await secretClient.GetSecretAsync("blobs");
 //blobs
-string azureKeys = keyVaultSecret.Value; ;
-BlobServiceClient blobServiceClient = new BlobServiceClient(azureKeys);
-builder.Services.AddTransient<BlobServiceClient>(x => blobServiceClient);
+//string azureKeys = keyVaultSecret.Value; ;
+//BlobServiceClient blobServiceClient = new BlobServiceClient(azureKeys);
+//builder.Services.AddTransient<BlobServiceClient>(x => blobServiceClient);
 
 //cache redis
-KeyVaultSecret keyVaultCache = await secretClient.GetSecretAsync("cacheredis");
-string cnnCacheRedis = keyVaultCache.Value;
+//KeyVaultSecret keyVaultCache = await secretClient.GetSecretAsync("cacheredis");
+//string cnnCacheRedis = keyVaultCache.Value;
+//builder.Services.AddStackExchangeRedisCache(options =>
+//{
+//    options.Configuration = cnnCacheRedis;
+//});
+
+//REDIS AWS
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = cnnCacheRedis;
+    options.Configuration = "cache-extra.vpmzbl.ng.0001.use1.cache.amazonaws.com:6379";
+    //options.InstanceName = "cache-extra-slice";
 });
 
 
