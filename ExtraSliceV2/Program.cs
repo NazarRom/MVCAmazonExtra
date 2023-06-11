@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
+using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ builder.Services.AddAzureClients(factory =>
 
 // Add services to the container.
 builder.Services.AddTransient<ServiceRestaurante>();
+builder.Services.AddTransient<ServiceCacheAmazon>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();

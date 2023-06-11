@@ -4,6 +4,7 @@ using ExtraSliceV2.Filters;
 using ExtraSliceV2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
 using Newtonsoft.Json;
 
@@ -12,10 +13,10 @@ namespace ExtraSliceV2.Controllers
     public class CartaController : Controller
     {
         private ServiceRestaurante service;
-        private ServiceCacheRedis serviceCache;
+        private ServiceCacheAmazon serviceCache;
         private IMemoryCache memoryCache;
 
-        public CartaController(ServiceRestaurante service, IMemoryCache memoryCache, ServiceCacheRedis serviceCache)
+        public CartaController(ServiceRestaurante service, IMemoryCache memoryCache, ServiceCacheAmazon serviceCache)
         {
             this.service = service;
             this.memoryCache = memoryCache;
@@ -133,7 +134,7 @@ namespace ExtraSliceV2.Controllers
             Producto producto = await this.service.FindProductoAsync(idproducto);
             //ALMACENAMOS EL PRODUCTO EN CACHE REDIS
             string token = HttpContext.Session.GetString("TOKEN");
-            this.serviceCache.AddProductoCarrito(producto, token);
+            this.serviceCache.AddCarritoRedisAsync(producto, token);
             return RedirectToAction("Restaurante", new { idrestaurante = idrestaurante });
         }
 
@@ -141,7 +142,7 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> CarritoProductos()
         {
             string token = HttpContext.Session.GetString("TOKEN");
-            List<Producto> productosFavoritos = await this.serviceCache.GetProductosCarrito(token);
+            List<Producto> productosFavoritos = await this.serviceCache.GetCarritoRedisAsync(token);
             if (productosFavoritos == null)
             {
                 ViewData["mensaje"] = "No hay productos";
@@ -165,14 +166,14 @@ namespace ExtraSliceV2.Controllers
 
 
             await this.service.FinalizarPedidoAsync(usuario.IdUser, idproducto, cantidad, token);
-            this.serviceCache.DeleteAllCarrito(token);
+            this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> DeleteCarrito(int idproducto)
         {
             string token = HttpContext.Session.GetString("TOKEN");
-            this.serviceCache.DeleteProductoCarrito(idproducto, token);
+            this.serviceCache.DeleteCarritoRedisAsync(idproducto, token);
             return RedirectToAction("CarritoProductos");
         }
 
@@ -187,7 +188,7 @@ namespace ExtraSliceV2.Controllers
             Producto producto = await this.service.FindProductoAsync(idfavorito);
             //ALMACENAMOS EL PRODUCTO EN CACHE REDIS
             string token = HttpContext.Session.GetString("TOKEN");
-            this.serviceCache.AddProductoFavorito(producto, token);
+            this.serviceCache.AddFavoritosRedisAsync(producto, token);
             ViewData["MENSAJE"] = "Producto almacenado en Favoritos";
             return RedirectToAction("Index");
         }
@@ -195,14 +196,14 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> Favoritos()
         {
             string token = HttpContext.Session.GetString("TOKEN");
-            List<Producto> productosFavoritos = await this.serviceCache.GetProductosFavoritos(token);
+            List<Producto> productosFavoritos = await this.serviceCache.GetFavoritosRedisAsync(token);
             return View(productosFavoritos);
         }
 
         public async Task<IActionResult> DeleteFavorito(int idproducto)
         {
             string token = HttpContext.Session.GetString("TOKEN");
-            this.serviceCache.DeleteProductoFavorito(idproducto, token);
+            this.serviceCache.DeleteFavoritosRedisAsync(idproducto, token);
             return RedirectToAction("Favoritos");
         }
         #endregion
