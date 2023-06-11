@@ -21,12 +21,6 @@ namespace MVCAmazonExtra.Helpers
 
             for (int i = 0; i < cantidad.Count; i++)
             {
-                html += "<tr>" +
-                    $"<td style='padding: 10px;'>{productos[i].Nombre_producto}</td>" +
-                    $"<td style='padding: 10px;'>{cantidad[i]}</td>" +
-                    $"<td style='padding: 10px;'>{productos[i].Precio}€</td>" +
-                    $"<td style='padding: 10px;'>{productos[i].Precio * cantidad[i]}€</td>" +
-                    $"</tr>";
                 total += ((double)productos[i].Precio * cantidad[i]);
             }
             html += $"<td colspan='3' style='padding: 10px; text-align: right; font-weight: bold;'>Total:</td><td style='padding: 10px; font-size: 18px; color: #f44336;'>{total}€</td></tr></div>";
