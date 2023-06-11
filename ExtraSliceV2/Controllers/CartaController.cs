@@ -169,6 +169,8 @@ namespace ExtraSliceV2.Controllers
 
 
             await this.service.FinalizarPedidoAsync(usuario.IdUser, idproducto, cantidad, token);
+
+
             string nombrevuelta = "";
             HelperPdf helper = new HelperPdf();
             string ruta = helper.GeneraPdf(productosSession, prodCantidad, usuario.Email, ref nombrevuelta);
@@ -177,6 +179,8 @@ namespace ExtraSliceV2.Controllers
                 await this.storageS3.UploadFileAsync(nombrevuelta, stream);
 
             }
+
+
             this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
         }

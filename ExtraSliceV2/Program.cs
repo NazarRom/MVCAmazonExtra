@@ -30,6 +30,7 @@ builder.Services.AddAzureClients(factory =>
 // Add services to the container.
 builder.Services.AddTransient<ServiceRestaurante>();
 builder.Services.AddTransient<ServiceCacheAmazon>();
+builder.Services.AddTransient<ServiceStorageS3>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();
