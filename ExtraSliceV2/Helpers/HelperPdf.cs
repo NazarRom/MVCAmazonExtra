@@ -11,10 +11,10 @@ namespace MVCAmazonExtra.Helpers
         {
             Random rnd = new Random();
             int generado = rnd.Next(0, 1000000);
-            string nombre = generado + email;
+            string nombre = generado + email + ".pdf";
             nombrevuelta = nombre;
             string basePath = Directory.GetCurrentDirectory();
-            string ruta = Path.Combine(basePath, "wwwroot/", nombre + ".pdf");
+            string ruta = Path.Combine(basePath, "wwwroot/", nombre);
             string html = "<h1>Hola</h1>";
             //string html = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  </head>\r\n<body style=\"font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 20px;\">\r\n  " +
             //"<h1 style=\"text-align: center;\">Factura</h1>\r\n<table style=\"width: 100%; border-collapse: collapse; margin-top: 20px;\">\r\n        <tr>\r\n           " +
