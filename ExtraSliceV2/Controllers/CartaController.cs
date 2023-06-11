@@ -162,7 +162,7 @@ namespace ExtraSliceV2.Controllers
             string prodCanString = JsonConvert.SerializeObject(prodCantidad);
 
             Usuario usuario = await this.service.GetPerfilUserAsync(token);
-            await this.service.SendMailAsync(usuario.Email, productostring, prodCanString);
+            //await this.service.SendMailAsync(usuario.Email, productostring, prodCanString);
 
 
             await this.service.FinalizarPedidoAsync(usuario.IdUser, idproducto, cantidad, token);
