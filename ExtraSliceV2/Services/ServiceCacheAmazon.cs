@@ -139,8 +139,7 @@ namespace MVCAmazonExtra.Services
             List<Producto> productos = await this.GetCarritoRedisAsync(token);
             if (productos != null)
             {
-                Producto prodEliminar = productos.FirstOrDefault(x => x.IdRestaurante == idprod);
-                productos.Remove(prodEliminar);
+                productos.RemoveAll(x => x.IdRestaurante == idprod);
                 //comprobamos si ya no existen coches favoritos
                 if (productos.Count == 0)
                 {
