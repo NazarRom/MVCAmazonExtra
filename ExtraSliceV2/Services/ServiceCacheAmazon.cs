@@ -58,7 +58,7 @@ namespace MVCAmazonExtra.Services
             await this.cache.SetStringAsync(id, jsonProductos, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(15)));
 
         }
-
+        //funciona porfa
         public async Task DeleteFavoritosRedisAsync(int idproducto, string token)
         {
             Usuario usuario = await this.service.GetPerfilUserAsync(token);
