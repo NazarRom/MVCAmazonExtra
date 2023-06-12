@@ -21,13 +21,13 @@ namespace MVCAmazonExtra.Helpers
             for (int i = 0; i < productos.Count; i++)
             {
                 html += "<tr><td>{productos[i].Nombre_producto}</td>" +
-                    $"<td>{cantidad[i]}</td>" +
-                    $"<td>{productos[i].Precio}€</td>" +
-                    $"<td>{productos[i].Precio * cantidad[i]}€</td>" +
-                    $"</tr>";
+                    "<td>" + cantidad[i] + "</td>" +
+                    "<td>" + productos[i].Precio  + " €</td>" +
+                    "<td>" + productos[i].Precio * cantidad[i] + "€</td>" +
+                    "</tr>";
                 total += ((double)productos[i].Precio * cantidad[i]);
             }
-            html += $"<td colspan='3'>Total:</td><td>{total}€</td></tr></div>";
+            html += "<td colspan='3'>Total:</td><td>" + total + "€</td></tr></div>";
 
             Document document = new Document();
             PdfWriter.GetInstance(document, new FileStream(ruta, FileMode.Create));
