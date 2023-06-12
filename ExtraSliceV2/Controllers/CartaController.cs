@@ -8,6 +8,8 @@ using MVCAmazonExtra.Helpers;
 using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
 using Newtonsoft.Json;
+using ProyectoNugetExtraSlice.Models;
+using System.Net.Mail;
 
 namespace ExtraSliceV2.Controllers
 {
@@ -179,7 +181,9 @@ namespace ExtraSliceV2.Controllers
                 await this.storageS3.UploadFileAsync(nombrevuelta, stream);
 
             }
-
+            List<Attachment> lista = new List<Attachment>();
+            lista.Add(new Attachment(nombrevuelta));
+            await this.service.SendMailAsync(new ModelCorreoLamdba() { Asunto = "Factura", Email = "m.guerra.nsp@gmail.com", Body = "Su factura pringao", Attachments = lista });
 
             this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
