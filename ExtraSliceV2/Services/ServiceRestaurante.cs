@@ -3,6 +3,7 @@ using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
 using ExtraSliceV2.Models;
+using MVCAmazonExtra.Helpers;
 using MVCAmazonExtra.Models;
 using MVCApiExtraSlice.Models;
 using Newtonsoft.Json;
@@ -18,15 +19,17 @@ namespace MVCApiExtraSlice.Services
     {
         private MediaTypeWithQualityHeaderValue Header;
         //private BlobServiceClient blobClient;
-        
+
         private string UrlApi;
 
         public ServiceRestaurante(IConfiguration configuration)
         {
             this.Header = new MediaTypeWithQualityHeaderValue("application/json");
-           // this.secretClient = secretClient;
-            this.UrlApi = configuration.GetValue<string>("KeyVault:VaultUri") ;
-           // this.blobClient = blobClient;
+            // this.secretClient = secretClient;
+            string response = HelperSecretManager.GetSecret("credentials-email").Result;
+            ModelCredentialsEmail model = JsonConvert.DeserializeObject<ModelCredentialsEmail>(response);
+            this.UrlApi = model.Api;
+            // this.blobClient = blobClient;
         }
 
         #region BLOBS
@@ -287,7 +290,7 @@ namespace MVCApiExtraSlice.Services
         //find producto en concreto
         public async Task<Producto> FindProductoAsync(int id)
         {
-            string request = "api/productos/findproducto/"+ id;
+            string request = "api/productos/findproducto/" + id;
             Producto producto = await this.CallApiAsync<Producto>(request);
             return producto;
         }
@@ -306,12 +309,12 @@ namespace MVCApiExtraSlice.Services
                 //nos creamos un objeto de la clase Hospital
                 UsuarioAux usuario = new UsuarioAux
                 {
-                   Nombre_cliente = nombre,
-                   Direccion = direccion,
-                   Telefono = telefono,
-                   Email = email,
-                   Password = pass
-                    
+                    Nombre_cliente = nombre,
+                    Direccion = direccion,
+                    Telefono = telefono,
+                    Email = email,
+                    Password = pass
+
                 };
                 //convertimos el objeto a json
                 string json = JsonConvert.SerializeObject(usuario);
@@ -361,7 +364,7 @@ namespace MVCApiExtraSlice.Services
                 //los datos, de ending  y su tipo
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(request, content);
-                
+
             };
         }
 
