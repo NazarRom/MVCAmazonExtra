@@ -15,25 +15,50 @@ namespace MVCAmazonExtra.Helpers
             nombrevuelta = nombre;
             string basePath = Directory.GetCurrentDirectory();
             string ruta = Path.Combine(basePath, "wwwroot/", nombre);
-            string html = "<div><h1>Factura</h1><table><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr><table>";
+            //string html = "<div><h1>Factura</h1><table><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr><table>";
+            string tablaHtml = "<table>";
+            tablaHtml += "<th>Producto</th>";
+            tablaHtml += "<th>Descripción</th>";
+            tablaHtml += "<th>Precio</th>";
+            tablaHtml += "<th>Cantidad</th>";
+            tablaHtml += "<th>Total</th>";
             double total = 0;
-
-            for (int i = 0; i < productos.Count; i++)
+            foreach (Producto pro in productos)
             {
-                html += "<tr><td>{productos[i].Nombre_producto}</td>" +
-                    "<td>" + cantidad[i] + "</td>" +
-                    "<td>" + productos[i].Precio  + " €</td>" +
-                    "<td>" + productos[i].Precio * cantidad[i] + "€</td>" +
-                    "</tr>";
-                total += ((double)productos[i].Precio * cantidad[i]);
+                total += (double)pro.Precio;
             }
-            html += "<td colspan='3'>Total:</td><td>" + total + "€</td></tr></div>";
+            for (var i = 0; i < productos.Count(); i++)
+            {
+                Producto prod = productos[i];
+                int cant = cantidad[i];
+
+                tablaHtml += "<tr>";
+                tablaHtml += "<td>" + prod.Nombre_producto + "</td>";
+                tablaHtml += "<td>" + prod.Descripcion + "</td>";
+                tablaHtml += "<td>" + prod.Precio + "€" + "</td>";
+                tablaHtml += "<td>" + cant + "</td>";
+                total += (double)prod.Precio * (cant - 1);
+
+            }
+            tablaHtml += "<td>" + total + "€" + "</td>";
+            tablaHtml += "</tr>";
+            tablaHtml += "</table>";
+            //for (int i = 0; i < productos.Count; i++)
+            //{
+            //    //html += "<tr><td>{productos[i].Nombre_producto}</td>" +
+            //    //    "<td>" + cantidad[i] + "</td>" +
+            //    //    "<td>" + productos[i].Precio  + " €</td>" +
+            //    //    "<td>" + productos[i].Precio * cantidad[i] + "€</td>" +
+            //    //    "</tr>";
+            //    total += ((double)productos[i].Precio * cantidad[i]);
+            //}
+            //html += "<td colspan='3'>Total:</td><td>" + total + "€</td></tr></div>";
 
             Document document = new Document();
             PdfWriter.GetInstance(document, new FileStream(ruta, FileMode.Create));
             document.Open();
             HTMLWorker htmlWorker = new HTMLWorker(document);
-            StringReader stringReader = new StringReader(html);
+            StringReader stringReader = new StringReader(tablaHtml);
             htmlWorker.Parse(stringReader);
             document.Close();
             return ruta;
