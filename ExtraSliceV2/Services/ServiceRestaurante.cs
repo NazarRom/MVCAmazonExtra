@@ -50,57 +50,57 @@ namespace MVCApiExtraSlice.Services
         #endregion
 
         #region MAIL
-        public async Task SendMailAsync
-        (string email, string productos, string cantidad)
-        {
-            KeyVaultSecret keyVaultSecret = await secretClient.GetSecretAsync("mailextraslice");
-            // Add services to the container.
-            string urlEmail = keyVaultSecret.Value;
-            List<Producto> prods = JsonConvert.DeserializeObject<List<Producto>>(productos);
-            List<int> cants = JsonConvert.DeserializeObject<List<int>>(cantidad);
-            string tablaHtml = "<table>";
-            tablaHtml += "<th>Producto</th>";
-            tablaHtml += "<th>Descripción</th>";
-            tablaHtml += "<th>Precio</th>";
-            tablaHtml += "<th>Cantidad</th>";
-            tablaHtml += "<th>Total</th>";
-            decimal total = 0;
-            foreach (Producto pro in prods)
-            {
-                total += pro.Precio;
-            }
-            for (var i = 0; i < prods.Count(); i++)
-            {
-                Producto prod = prods[i];
-                int cant = cants[i];
+        //public async Task SendMailAsync
+        //(string email, string productos, string cantidad)
+        //{
+        //    KeyVaultSecret keyVaultSecret = await secretClient.GetSecretAsync("mailextraslice");
+        //    // Add services to the container.
+        //    string urlEmail = keyVaultSecret.Value;
+        //    List<Producto> prods = JsonConvert.DeserializeObject<List<Producto>>(productos);
+        //    List<int> cants = JsonConvert.DeserializeObject<List<int>>(cantidad);
+        //    string tablaHtml = "<table>";
+        //    tablaHtml += "<th>Producto</th>";
+        //    tablaHtml += "<th>Descripción</th>";
+        //    tablaHtml += "<th>Precio</th>";
+        //    tablaHtml += "<th>Cantidad</th>";
+        //    tablaHtml += "<th>Total</th>";
+        //    decimal total = 0;
+        //    foreach (Producto pro in prods)
+        //    {
+        //        total += pro.Precio;
+        //    }
+        //    for (var i = 0; i < prods.Count(); i++)
+        //    {
+        //        Producto prod = prods[i];
+        //        int cant = cants[i];
 
-                tablaHtml += "<tr>";
-                tablaHtml += "<td>" + prod.Nombre_producto + "</td>";
-                tablaHtml += "<td>" + prod.Descripcion + "</td>";
-                tablaHtml += "<td>" + prod.Precio + "€" + "</td>";
-                tablaHtml += "<td>" + cant + "</td>";
-                total += prod.Precio * (cant - 1);
+        //        tablaHtml += "<tr>";
+        //        tablaHtml += "<td>" + prod.Nombre_producto + "</td>";
+        //        tablaHtml += "<td>" + prod.Descripcion + "</td>";
+        //        tablaHtml += "<td>" + prod.Precio + "€" + "</td>";
+        //        tablaHtml += "<td>" + cant + "</td>";
+        //        total += prod.Precio * (cant - 1);
 
-            }
-            tablaHtml += "<td>" + total + "€" + "</td>";
-            tablaHtml += "</tr>";
-            tablaHtml += "</table>";
-            var model = new
-            {
-                email = email,
-                asunto = "Pedido Extra Slice",
-                mensaje = tablaHtml
-            };
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(this.Header);
-                string json = JsonConvert.SerializeObject(model);
-                StringContent content =
-                    new StringContent(json, Encoding.UTF8, "application/json");
-                await client.PostAsync(urlEmail, content);
-            }
-        }
+        //    }
+        //    tablaHtml += "<td>" + total + "€" + "</td>";
+        //    tablaHtml += "</tr>";
+        //    tablaHtml += "</table>";
+        //    var model = new
+        //    {
+        //        email = email,
+        //        asunto = "Pedido Extra Slice",
+        //        mensaje = tablaHtml
+        //    };
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Clear();
+        //        client.DefaultRequestHeaders.Accept.Add(this.Header);
+        //        string json = JsonConvert.SerializeObject(model);
+        //        StringContent content =
+        //            new StringContent(json, Encoding.UTF8, "application/json");
+        //        await client.PostAsync(urlEmail, content);
+        //    }
+        //}
 
         public async Task SendMailAsync(ModelLamdbaCorreo model)
         {
