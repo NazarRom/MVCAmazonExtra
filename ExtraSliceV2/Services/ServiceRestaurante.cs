@@ -6,6 +6,7 @@ using ExtraSliceV2.Models;
 using MVCApiExtraSlice.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ProyectoNugetExtraSlice.Models;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
@@ -100,11 +101,24 @@ namespace MVCApiExtraSlice.Services
         //    }
         //}
 
-            #endregion
+        public async Task SendMailAsync(ModelCorreoLamdba model)
+        {
+            string urlEmail = "https://5ij6485na5.execute-api.us-east-1.amazonaws.com/prod/envio-correo";
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.Header);
+                string json = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                await client.PostAsync(urlEmail, content);
+            }
+        }
+
+        #endregion
 
         #region METHODS
-            //get token
-            public async Task<string> GetTokenAsync
+        //get token
+        public async Task<string> GetTokenAsync
         (string username, string password)
         {
             using (HttpClient client = new HttpClient())
