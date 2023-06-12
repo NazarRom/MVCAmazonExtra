@@ -67,7 +67,7 @@ namespace MVCAmazonExtra.Services
             List<Producto> productos = await this.GetFavoritosRedisAsync(token);
             if (productos != null)
             {
-                Producto prodEliminar = productos.FirstOrDefault(x => x.IdRestaurante == idproducto);
+                Producto prodEliminar = productos.FirstOrDefault(x => x.IdProducto == idproducto);
                 productos.Remove(prodEliminar);
                 //comprobamos si ya no existen coches favoritos
                 if (productos.Count == 0)
@@ -139,7 +139,7 @@ namespace MVCAmazonExtra.Services
             List<Producto> productos = await this.GetCarritoRedisAsync(token);
             if (productos != null)
             {
-                Producto prodEliminar = productos.FirstOrDefault(x => x.IdRestaurante == idprod);
+                Producto prodEliminar = productos.FirstOrDefault(x => x.IdProducto == idprod);
 
                 productos.Remove(prodEliminar);
                 //comprobamos si ya no existen coches favoritos
