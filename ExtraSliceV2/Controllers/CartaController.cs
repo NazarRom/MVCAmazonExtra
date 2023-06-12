@@ -192,7 +192,7 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> DeleteCarrito(int idproducto)
         {
             string token = HttpContext.Session.GetString("TOKEN");
-            this.serviceCache.DeleteCarritoRedisAsync(idproducto, token);
+           await this.serviceCache.DeleteCarritoRedisAsync(idproducto, token);
             return RedirectToAction("CarritoProductos");
         }
 
