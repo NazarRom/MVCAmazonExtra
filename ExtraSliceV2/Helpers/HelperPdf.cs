@@ -36,7 +36,7 @@ namespace MVCAmazonExtra.Helpers
                 int cant = cantidad[i];
 
                // tablaHtml += "<tr>";
-                tablaHtml += "<p>" + "Nombre "+ prod.Nombre_producto + " -- " + "Descripción " + prod.Descripcion + " -- "+"Precio "+ prod.Precio + " -- "+ "Cantidad " +cant+ "</p></br></br>";
+                tablaHtml += "<p>" + "<b>Nombre: </b>"+ prod.Nombre_producto + " -- " + "<b>Descripción: </b>" + prod.Descripcion + " -- "+"<b>Precio: </b>"+ prod.Precio + " -- "+ "<b>Cantidad: </b>" +cant+ "</p></br></br></br>";
                 //tablaHtml += "<td>" + prod.Descripcion + "</td>";
                 //tablaHtml += "<td>" + prod.Precio + "€" + "</td>";
                 //tablaHtml += "<td>" + cant + "</td>";
