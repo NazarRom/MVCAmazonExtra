@@ -16,7 +16,7 @@ namespace MVCAmazonExtra.Helpers
             string basePath = Directory.GetCurrentDirectory();
             string ruta = Path.Combine(basePath, "wwwroot/", nombre);
             //string html = "<div><h1>Factura</h1><table><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr><table>";
-            string tablaHtml = "<ul>";
+             string tablaHtml = "";
             //tablaHtml += "<thead>";
             //tablaHtml += "<th>Producto</th>";
             //tablaHtml += "<th>Descripción</th>";
@@ -36,7 +36,7 @@ namespace MVCAmazonExtra.Helpers
                 int cant = cantidad[i];
 
                // tablaHtml += "<tr>";
-                tablaHtml += "<li>" + prod.Nombre_producto + "/" + prod.Descripcion + "/"+ prod.Precio + "/" +cant+ "</li>";
+                tablaHtml += "<p>" + prod.Nombre_producto + "/" + prod.Descripcion + "/"+ prod.Precio + "/" +cant+ "</p></br>";
                 //tablaHtml += "<td>" + prod.Descripcion + "</td>";
                 //tablaHtml += "<td>" + prod.Precio + "€" + "</td>";
                 //tablaHtml += "<td>" + cant + "</td>";
@@ -46,7 +46,7 @@ namespace MVCAmazonExtra.Helpers
             //tablaHtml += "<td>" + total + "€" + "</td>";
             //tablaHtml += "</tr>";
             //tablaHtml += "</tbody>";
-            tablaHtml += "</ul>";
+           // tablaHtml += "</ul>";
             tablaHtml += "<h3>TOTAL: " + total + "€" + "</h3>";
             //for (int i = 0; i < productos.Count; i++)
             //{
