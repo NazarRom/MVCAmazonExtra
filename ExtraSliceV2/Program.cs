@@ -40,7 +40,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();
 
-string miSecreto = await HelperSecretManager.GetSecret();
+string miSecreto = await HelperSecretManager.GetSecret("cache-redis");
 
 //PODEMOS DAR FORMATO A NUESTRO SECRETO
 ElasticModel model = JsonConvert.DeserializeObject<ElasticModel>(miSecreto);
