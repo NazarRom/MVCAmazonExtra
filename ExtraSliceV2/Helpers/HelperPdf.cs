@@ -17,16 +17,19 @@ namespace MVCAmazonExtra.Helpers
             string ruta = Path.Combine(basePath, "wwwroot/", nombre);
             //string html = "<div><h1>Factura</h1><table><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr><table>";
             string tablaHtml = "<table>";
+            tablaHtml += "<thead>";
             tablaHtml += "<th>Producto</th>";
             tablaHtml += "<th>Descripción</th>";
             tablaHtml += "<th>Precio</th>";
             tablaHtml += "<th>Cantidad</th>";
             tablaHtml += "<th>Total</th>";
+            tablaHtml += "</thead>";
             double total = 0;
             foreach (Producto pro in productos)
             {
                 total += (double)pro.Precio;
             }
+            tablaHtml += "<tbody>";
             for (var i = 0; i < productos.Count(); i++)
             {
                 Producto prod = productos[i];
@@ -42,6 +45,7 @@ namespace MVCAmazonExtra.Helpers
             }
             tablaHtml += "<td>" + total + "€" + "</td>";
             tablaHtml += "</tr>";
+            tablaHtml += "</tbody>";
             tablaHtml += "</table>";
             //for (int i = 0; i < productos.Count; i++)
             //{

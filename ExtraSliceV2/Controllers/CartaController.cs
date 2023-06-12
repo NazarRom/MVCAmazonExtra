@@ -182,7 +182,7 @@ namespace ExtraSliceV2.Controllers
             }
             List<string> lista = new List<string>();
             lista.Add(nombrevuelta);
-            await this.service.SendMailAsync(new ModelLamdbaCorreo() { Asunto = "Factura", Email = "m.guerra.nsp@gmail.com", Body = "Su factura pringao", Attachments = lista });
+            await this.service.SendMailAsync(new ModelLamdbaCorreo() { Asunto = "Factura", Email = usuario.Email, Body = "Su factura pringao", Attachments = lista });
 
             this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
