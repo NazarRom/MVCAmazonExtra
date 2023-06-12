@@ -15,25 +15,19 @@ namespace MVCAmazonExtra.Helpers
             nombrevuelta = nombre;
             string basePath = Directory.GetCurrentDirectory();
             string ruta = Path.Combine(basePath, "wwwroot/", nombre);
-            string html = "";
-            for (int i = 0; i < productos.Count(); i++)
+            string html = "<div><h1>Factura</h1><table><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr><table>";
+            double total = 0;
+
+            for (int i = 0; i < productos.Count; i++)
             {
-                html+= "<h1 style='background-color: #f9f9f9;'>Hola</h1>" + productos[i].Nombre_producto;
-
+                html += "<tr><td>{productos[i].Nombre_producto}</td>" +
+                    $"<td>{cantidad[i]}</td>" +
+                    $"<td>{productos[i].Precio}€</td>" +
+                    $"<td>{productos[i].Precio * cantidad[i]}€</td>" +
+                    $"</tr>";
+                total += ((double)productos[i].Precio * cantidad[i]);
             }
-            //string html = "<div style='font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 20px;'><h1 style='text-align: center;'>Factura</h1><table style='width: 100%; border-collapse: collapse; margin-top: 20px;'><tr><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Nombre</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Cantidad</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Precio</th><th style='padding: 10px; text-align: left; background-color: #f2f2f2;'>Total</th></tr><table style='width: 100%; border-collapse: collapse; margin-top: 20px;'>";
-            //double total = 0;
-
-            //for (int i = 0; i < productos.Count; i++)
-            //{
-            //    html += "<tr><td style='padding: 10px;'>{productos[i].Nombre_producto}</td>" +
-            //        $"<td style='padding: 10px;'>{cantidad[i]}</td>" +
-            //        $"<td style='padding: 10px;'>{productos[i].Precio}€</td>" +
-            //        $"<td style='padding: 10px;'>{productos[i].Precio * cantidad[i]}€</td>" +
-            //        $"</tr>";
-            //    total += ((double)productos[i].Precio * cantidad[i]);
-            //}
-            //html += $"<td colspan='3' style='padding: 10px; text-align: right; font-weight: bold;'>Total:</td><td style='padding: 10px; font-size: 18px; color: #f44336;'>{total}€</td></tr></div>";
+            html += $"<td colspan='3'>Total:</td><td>{total}€</td></tr></div>";
 
             Document document = new Document();
             PdfWriter.GetInstance(document, new FileStream(ruta, FileMode.Create));
