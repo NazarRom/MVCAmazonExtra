@@ -1,15 +1,14 @@
 ﻿using ApiProyectoExtraSlice.Models;
-using ExtraSliceV2.Extensions;
 using ExtraSliceV2.Filters;
 using ExtraSliceV2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MVCAmazonExtra.Helpers;
+using MVCAmazonExtra.Models;
 using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
 using Newtonsoft.Json;
-using ProyectoNugetExtraSlice.Models;
-using System.Net.Mail;
+//using ProyectoNugetExtraSlice.Models;
 
 namespace ExtraSliceV2.Controllers
 {
@@ -181,9 +180,9 @@ namespace ExtraSliceV2.Controllers
                 await this.storageS3.UploadFileAsync(nombrevuelta, stream);
 
             }
-            List<Attachment> lista = new List<Attachment>();
-            lista.Add(new Attachment(nombrevuelta));
-            await this.service.SendMailAsync(new ModelCorreoLamdba() { Asunto = "Factura", Email = "m.guerra.nsp@gmail.com", Body = "Su factura pringao", Attachments = lista });
+            List<string> lista = new List<string>();
+            lista.Add(nombrevuelta);
+            await this.service.SendMailAsync(new ModelLamdbaCorreo() { Asunto = "Factura", Email = "m.guerra.nsp@gmail.com", Body = "Su factura pringao", Attachments = lista });
 
             this.serviceCache.DeleteAllCarritoRedisAsync(token);
             return RedirectToAction("Index");
@@ -192,7 +191,7 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> DeleteCarrito(int idproducto)
         {
             string token = HttpContext.Session.GetString("TOKEN");
-           await this.serviceCache.DeleteCarritoRedisAsync(idproducto, token);
+            await this.serviceCache.DeleteCarritoRedisAsync(idproducto, token);
             return RedirectToAction("CarritoProductos");
         }
 

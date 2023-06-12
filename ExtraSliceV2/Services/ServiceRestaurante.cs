@@ -3,10 +3,11 @@ using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
 using ExtraSliceV2.Models;
+using MVCAmazonExtra.Models;
 using MVCApiExtraSlice.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ProyectoNugetExtraSlice.Models;
+//using ProyectoNugetExtraSlice.Models;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
@@ -101,7 +102,7 @@ namespace MVCApiExtraSlice.Services
         //    }
         //}
 
-        public async Task SendMailAsync(ModelCorreoLamdba model)
+        public async Task SendMailAsync(ModelLamdbaCorreo model)
         {
             string urlEmail = "https://5ij6485na5.execute-api.us-east-1.amazonaws.com/prod/envio-correo";
             using (HttpClient client = new HttpClient())
