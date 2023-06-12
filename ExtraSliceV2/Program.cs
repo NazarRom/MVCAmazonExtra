@@ -4,8 +4,11 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
+using MVCAmazonExtra.Helpers;
+using MVCAmazonExtra.Models;
 using MVCAmazonExtra.Services;
 using MVCApiExtraSlice.Services;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews(options => options.EnableEndpointRouting = false).AddSessionStateTempDataProvider();
@@ -37,6 +40,14 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();
 
+string miSecreto = await HelperSecretManager.GetSecret();
+
+//PODEMOS DAR FORMATO A NUESTRO SECRETO
+ElasticModel model = JsonConvert.DeserializeObject<ElasticModel>(miSecreto);
+
+//SI ESTAMOS EN UNA APP MAS COMPLEJA DONDE NECESITAMOS RECUPERAR MAS 
+//DATOS Y UTILIZARLOS EN DISTINTAS CLASES, AL ESTILO DE IConfiguration
+builder.Services.AddSingleton<ElasticModel>(x => model).BuildServiceProvider();
 
 //connection to az keyvault
 SecretClient secretClient = builder.Services.BuildServiceProvider().GetService<SecretClient>();
@@ -59,7 +70,7 @@ SecretClient secretClient = builder.Services.BuildServiceProvider().GetService<S
 //REDIS AWS
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = "cache-extra.vpmzbl.ng.0001.use1.cache.amazonaws.com:6379";
+    options.Configuration = model.Connection_cache;
     //options.InstanceName = "cache-extra-slice";
 });
 
